@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fancy Contact Form</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="form-wrapper">
+    <div class="form-container" id="form-container">
+      <h1>Contact Us</h1>
+      <form id="contact-form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const container = document.getElementById('form-container');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent actual form submission
+      container.innerHTML = `
+        <h1>Thank You!</h1>
+        <p style="text-align:center; font-size:1.1rem; margin-top:1rem;">
+          Thank you for submitting. You will be contacted if you win!
+        </p>
+      `;
+    });
+  </script>
+</body>
+</html>
