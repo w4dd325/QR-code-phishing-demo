@@ -22,19 +22,43 @@
     </div>
   </div>
 
-  <script>
-    const form = document.getElementById('contact-form');
-    const container = document.getElementById('form-container');
+<script>
+  const form = document.getElementById("contact-form");
+  const container = document.getElementById("form-container");
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault(); // Prevent actual form submission
-      container.innerHTML = `
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // no body needed since server just increments click_count
+        body: JSON.stringify({}),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        container.innerHTML = `
         <h1>Thank You!</h1>
         <p style="text-align:center; font-size:1.1rem; margin-top:1rem;">
-          Thank you for submitting. You will be contacted if you win!
+          Thank you for submitting. Total submissions so far: ${data.click_count}
         </p>
       `;
-    });
-  </script>
+      } else {
+        alert("There was an error. Please try again.");
+      }
+    } catch (error) {
+      console.error("Submission failed", error);
+      alert("Network error. Try again later.");
+    }
+  });
+</script>
+
+
+
+
 </body>
 </html>
